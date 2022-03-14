@@ -4,12 +4,15 @@ var handlebars = require('express-handlebars');
 
 var routes = require('./routes');
 
+
 var app = express();
+app.use(express.urlencoded({ extended: true }));
 const hbs = handlebars.create()
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.use(routes);
 app.listen(3001);
+
 
 
 //helloworld
