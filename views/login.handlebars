@@ -1,15 +1,14 @@
-
-    <div>
-        <form method="POST" action="/login">
-            <div>
-                <label for="Email" class="form-label">Email address</label>
-                <input name="email" type="email" class="form-control" id="Email" placeholder="Enter email">
-            </div>
-            <div>
-                <label for="Password" class="form-label">Password</label>
-                <input name="password" type="password" class="form-control" id="Password" placeholder=" Enter Password">
-            </div>
-            <br>
-            <button type="submit" class="btn btn-info">Login</button>
-        </form>
-    </div>
+<main>
+    <form class="loginForm" method="POST" action="/login">
+        <div class="titleBox">
+            <h2>{{title}}</h2>
+        </div>
+        <input name="email" type="email" class="formEmailField" id="email" placeholder="Enter email">
+        <input name="password" type="password" class="formPwordField" id="password" placeholder="Enter Password">
+        <button type="submit" class="button">Login</button>
+        <div class="toLogin">
+            <h3 class="toLoginText">Don't have an account?</h3>
+            <button type="button" class="buttonSml" onclick="location.href='/signup'">Sign Up</button>
+        </div>
+    </form>
+</main>
