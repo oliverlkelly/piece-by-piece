@@ -1,14 +1,30 @@
 const User = require('./user');
 const Challenge = require('./challenge');
+const Score = require('./userchallenge');
 
 
-User.hasMany(Challenge, {
+User.belongsToMany(Challenge, {
+    through: Score,
     foreignKey: 'user_id'
 });
 
-Challenge.belongsTo(User, {
-    foreignKey: 'user_id',
-    onDelete: "cascade"
+Challenge.belongsToMany(User, {
+    through: Score,
+    foreignKey: 'challenge_id',
+   
 });
 
-module.exports = { User , Challenge };
+
+// Product.belongsToMany(Tag, {
+//     through: ProductTag,
+//     // as: 'product_tags',
+//     foreignKey: 'product_id',
+//   });
+  
+
+
+
+
+
+
+module.exports = { User , Challenge, Score };
