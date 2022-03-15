@@ -2,10 +2,10 @@
   "name": "piece-by-piece",
   "version": "1.0.0",
   "description": "Build habits, Piece By Piece",
-  "main": "signup.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon signup.js"
+    "watch": "nodemon server.js"
   },
   "repository": {
     "type": "git",

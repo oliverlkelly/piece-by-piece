@@ -1,0 +1,125 @@
+:root{
+    background-color: white;
+    color: black;
+    --mainColor: #fff;
+    --highlightColor: #2B293C;
+    --highlightColor2: rgba(106, 73, 115, 0.5);
+}
+nav{
+    background-color: var(--highlightColor);
+    height: 8rem;
+    width: 100%;
+}
+.mainTitle{
+    background-color: var(--mainColor);
+    color: var(--highlightColor);
+    height: 4.5rem;
+    margin-top: 1.75rem;
+    border-radius: 0.5rem;
+    box-shadow: 0.5rem 0.5rem var(--highlightColor2);
+    font-size: 50px;
+    font-weight: bolder;
+    margin-left: 20px;
+    float: left;
+    cursor: default;
+}
+nav ul{
+    float: left;
+    margin-left: 2rem;
+}
+nav ul li{
+    display: inline-block;
+    margin-top: 1.5rem;
+    margin-right: 2rem;
+    font-size: 3rem;
+}
+nav ul li a{
+    text-decoration: none;
+    color: var(--mainColor);
+    cursor: pointer;
+}
+body{
+    background-color: var(--mainColor);
+}
+main{
+    display: flex;
+
+    justify-content: center;
+}
+.titleBox{
+    background-color: var(--highlightColor);
+    color: var(--mainColor);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    margin-bottom: 1.5rem;
+}
+.signupForm{
+    border: 5px solid var(--highlightColor);
+    margin: 5rem;
+    display: flex;
+    width: 50rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.loginForm{
+    border: 5px solid var(--highlightColor);
+    margin: 5rem;
+    display: flex;
+    width: 50rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.nameFields{
+    display: flex;
+    flex-direction: row;
+}
+.formNameField{
+    border-radius: 0.5rem;
+    height: 3rem;
+    width: 20rem;
+    margin: 0 1.5rem 0;
+}
+.formEmailField{
+    border-radius: 0.5rem;
+    height: 3rem;
+    width: 43rem;
+    margin: 1.5rem 0;
+}
+.formPwordField{
+    border-radius: 0.5rem;
+    height: 3rem;
+    width: 43rem;
+    margin-bottom: 1.5rem;
+}
+.button{
+    height: 3rem;
+    width: 5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+.toLogin{
+    display: flex;
+    flex-direction: row;
+}
+.toLoginText{
+    line-height: 2rem;
+    margin-right: 1rem;
+}
+.buttonSml{
+    height: 2rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--highlightColor);
+}
