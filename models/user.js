@@ -15,7 +15,11 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
+    f_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    l_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
