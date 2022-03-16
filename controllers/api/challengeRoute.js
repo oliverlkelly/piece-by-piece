@@ -1,6 +1,38 @@
 const router = require('express').Router();
-const { Challenge } = require('../../models');
+const { Challenge, User } = require('../../models');
 const withAuth = require('../../utils/auth');
+
+router.get('/',  async (req, res) => {
+    try {
+        const challengeData = await Challenge.findAll({
+            attributes: [
+                'id',
+                'title',
+                'description',
+                'starting_date',
+                'ending_date',
+                'repetitions'
+            ],
+            include: [
+                {
+                    model: User,
+                    attributes: ['name']
+                },
+            ]
+        })
+        const challenges = challengeData.map(challenge=> challenge.get({ plain: true }));
+
+        // Pass challenge data and session flag into template
+    // res.render('homepage', { 
+    //     challenges,
+    //     logged_in: 
+    //     req.session.logged_in
+    //   });
+    res.status(200).json(challenges);
+    } catch (err){
+        res.status(500).json(err);  
+    }
+});
 
 // CREATE CHALLENGE
 router.post('/', withAuth, async (req, res) => {
