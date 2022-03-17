@@ -1,68 +1,61 @@
 const router = require('express').Router();
-const { Challenge, User } = require('../../models');
+const { Challenge } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-router.get('/',  async (req, res) => {
+router.get('/', async (req, res) => {
+    // find all challenges
     try {
-        const challengeData = await Challenge.findAll({
-            attributes: [
-                'id',
-                'title',
-                'description',
-                'starting_date',
-                'ending_date',
-                'repetitions'
-            ],
-            include: [
-                {
-                    model: User,
-                    attributes: ['name']
-                },
-            ]
-        })
-        const challenges = challengeData.map(challenge=> challenge.get({ plain: true }));
+        const challengeData = await Challenge.findAll()
+        const challenges = challengeData.map(challenge => challenge.get({ plain: true }));
 
-        // Pass challenge data and session flag into template
-    // res.render('homepage', { 
-    //     challenges,
-    //     logged_in: 
-    //     req.session.logged_in
-    //   });
-    res.status(200).json(challenges);
-    } catch (err){
-        res.status(500).json(err);  
+
+        res.status(200).json(challenges);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+
+});
+
+router.get('/:id', async (req, res) => {
+   
+    // find a challenge by id
+    try {
+        const challengeDataById = await Challenge.findOne({
+            where: { id: req.params.id },
+    
+        })
+        if (!challengeDataById) {
+            res.status(404).json({ message: 'No challenge found with that id!' });
+            return;
+        }
+        res.status(200).json(challengeDataById);
+
+    } catch (err) {
+        res.status(500).json(err);
     }
 });
 
+
 // CREATE CHALLENGE
-router.post('/', withAuth, async (req, res) => {
-   
+router.post('/', async (req, res) => {
+
     try {
-        const newChallenge = await Challenge.create({
-            title: req.body.title,
-            description: req.body.description,
-            starting_date: req.body.starting_date,
-            ending_date: req.body.ending_date,
-            repetitions: req.body.repetitions,
-            user_id: req.session.user_id
-        });
+        const newChallenge = await Challenge.create(req.body);
         console.log(newChallenge);
-        res.json(newChallenge);
+        res.status(200).json(newChallenge);
     } catch (err) {
         res.status(400).json(err);
     }
 });
 
-router.put('/', withAuth, async (req, res) => {
+// update a challenge
+router.put('/:id',  async (req, res) => {
     try {
-        const updatedChallenge = await Post.update(
+        const updatedChallenge = await Challenge.update(
             {
                 title: req.body.title,
-            description: req.body.description,
-            starting_date: req.body.starting_date,
-            ending_date: req.body.ending_date,
-            repetitions: req.body.repetitions,
-            user_id: req.session.user_id
+                description: req.body.description,
+
             },
             {
                 where: {
@@ -80,9 +73,10 @@ router.put('/', withAuth, async (req, res) => {
     }
 });
 
+// delete a challenge
 router.delete('/:id', withAuth, async (req, res) => {
     try {
-        const challengeData = await Post.destroy({
+        const challengeData = await Challenge.destroy({
             where: {
                 id: req.params.id,
             },
