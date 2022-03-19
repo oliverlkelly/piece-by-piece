@@ -8,6 +8,7 @@
     <title>{{title}}</title>
     <link rel="stylesheet" href="../stylesheets/reset.css">
     <link rel="stylesheet" href="../stylesheets/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -21,7 +22,8 @@
                 <li><a href="/" id ="logout">Logout</a></li>
                 {{else}}
                 <li><a class="link" href="/login">Login</a></li>
-                   
+                
+                
                 {{!-- {{else if isLoginPage}}
                 <li><a href="/signup">Sign Up</a></li>
                 {{else if isSignupPage}}
