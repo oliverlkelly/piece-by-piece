@@ -1,47 +1,40 @@
 const router = require('express').Router();
-const { Challenge, User } = require('../../models');
+const { User } = require('../../models');
 
-
-router.get('/',  async (req, res) => {
+// post method for user signup
+router.post('/', async (req, res) => {
   try {
-      const challengeData = await Challenge.findAll({
-          attributes: [
-              'id',
-              'title',
-              'description',
-              'starting_date',
-              'ending_date',
-              'repetitions'
-          ],
-          include: [
-              {
-                  model: User,
-                  attributes: ['name']
-              },
-          ]
-      })
-      const challenges = challengeData.map(challenge=> challenge.get({ plain: true }));
+    const newUser = await User.create(
+      {
+        f_name: req.body.fName,
+        l_name: req.body.lName,
+        email: req.body.email,
+        password: req.body.password
+      });
 
-      // Pass challenge data and session flag into template
-  // res.render('homepage', { 
-  //     challenges,
-  //     logged_in: 
-  //     req.session.logged_in
-  //   });
-  res.status(200).json(challenges);
-  } catch (err){
-      res.status(500).json(err);  
+      req.session.save(() => {
+        req.session.user_id = newUser.id;
+        // req.session.f_name = newUser.f_name;
+        // req.session.l_name = newUser.l_name;
+        req.session.email = newUser.email;
+        req.session.loggedIn = true;
+  
+        res.status(200).json(newUser);
+      });
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 
+// login route
   router.post('/login', async (req, res) => {
     try {
-      const userData = await User.findOne({ where: { name: req.body.name } });
+      const userData = await User.findOne({ where: { email: req.body.email } });
   
       if (!userData) {
         res
           .status(400)
-          .json({ message: 'No user with that username!' });
+          .json({ message: 'No user with that email!' });
         return;
       }
   
@@ -56,20 +49,19 @@ router.get('/',  async (req, res) => {
   
       req.session.save(() => {
         req.session.user_id = userData.id;
-        req.session.name = userData.name;
-        req.session.email = newUser.email;
-        req.session.logged_in = true;
+        req.session.email = userData.email;
+        req.session.loggedIn = true;
   
-        res.json({ userData, message: 'You are now logged in!' });
+        res.status(200).json({ userData, message: 'You are now logged in!' });
       });
   
     } catch (err) {
       res.status(400).json(err);
     }
   });
-  
+  // logout route
   router.post('/logout', (req, res) => {
-    if (req.session.logged_in) {
+    if (req.session.loggedIn) {
       req.session.destroy(() => {
         res.status(204).end();
       });

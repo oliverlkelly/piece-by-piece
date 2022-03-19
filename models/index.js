@@ -14,17 +14,8 @@ Challenge.belongsToMany(User, {
    
 });
 
+module.exports = { User , Challenge, Score };
 
-// Product.belongsToMany(Tag, {
-//     through: ProductTag,
-//     // as: 'product_tags',
-//     foreignKey: 'product_id',
-//   });
+
   
 
-
-
-
-
-
-module.exports = { User , Challenge, Score };
