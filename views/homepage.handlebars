@@ -1,5 +1,5 @@
 <main class="homepage">
-    <h2 class="welcome">Welcome {{user.firstname}}!</h2>
+    <h2 class="welcome">Welcome {{userFname}}!</h2>
     <p>{{email}}</p>
         <ul class="blocks">
             {{#each userchallenges as |challenge|}}
@@ -22,7 +22,7 @@
                                 <a href="/updateScore/{{challenge.id}}" class="iconPlusminus"><i class="fa-solid fa-square-minus"></i></a>
                             </div>
                             <div class="scoreVal">
-                                {{challenge.score}}
+                                {{challenge.user_score}}
                             </div>
                             <div class="plusminus">
                                 <a href="/updateScore/{{challenge.id}}" class="iconPlusminus"><i class="fa-solid fa-square-plus"></i></a>

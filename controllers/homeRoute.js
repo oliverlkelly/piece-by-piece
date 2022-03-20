@@ -4,14 +4,36 @@ require('dotenv').config();
 const {  User, Challenge, Score } = require('../models');
 
 router.get('/', async function(req, res, next){
-    const challengeData = await Challenge.findAll();
-    const userchallenges = challengeData.map((chal) => chal.get({ plain: true }));
-    const user = {
-        firstname: "Oliver",
-        lastname: "Kelly"
+    if(req.session.loggedIn){
+        const scoreData = await Score.findAll({where: {user_id: req.session.user_id}});
+        const userchallenges = scoreData.map((chal) => chal.get({ plain: true }));
+        res.render('homepage', {layout: 'main', title: 'Homepage', userchallenges, userFname: req.session.f_name, loggedIn: req.session.loggedIn});
     }
-    res.render('homepage', {layout: 'main', title: 'Homepage', userchallenges, user, loggedIn: req.session.loggedIn});
+    else{
+        res.redirect('/login');
+    }
 });
+// router.get('/', async function(req, res, next){
+//         try{
+//             const challengeData = await Challenge.findAll({
+//                     include: [
+//                         {
+//                             model: User,
+//                             through: Score,
+//                             required: true
+//                         }
+//                     ]
+//             },
+//             {
+//                 where: {users_id: req.session.user_id}
+//             }
+//             );
+//             const userchallenges = challengeData.map((chal) => chal.get({ plain: true }));
+//             res.render('homepage', {layout: 'main', title: 'Homepage', userchallenges, userFname: req.session.f_name, loggedIn: req.session.loggedIn});
+//         }catch(err){
+//             res.status(500).json(err);
+//         }
+// })
 
 
 
