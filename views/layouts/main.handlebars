@@ -10,37 +10,33 @@
     <link rel="stylesheet" href="../stylesheets/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+<header>
+    <h1 class="mainTitle">Piece By Piece</h1>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/leaderboard">Leaderboard</a></li>
+            {{#if loggedIn}}
+            <li><a href="/" id ="logout">Logout</a></li>
+            {{else}}
+            <li><a class="link" href="/login">Login</a></li>
 
+            {{!-- {{else if isLoginPage}}
+            <li><a href="/signup">Sign Up</a></li>
+            {{else if isSignupPage}}
+            <li><a href="/login">Login</a></li>
+            {{else}}
+            <li><a href="/signup">Sign Up</a></li>
+            <li><a href="/login">Login</a></li> --}}
+            {{/if}}
+        </ul>
+    </nav>
+</header>
 <body>
-    <header>
-        <h1 class="mainTitle">Piece By Piece</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/leaderboard">Leaderboard</a></li>
-                {{#if loggedIn}}
-                <li><a href="/" id ="logout">Logout</a></li>
-                {{else}}
-                <li><a class="link" href="/login">Login</a></li>
-                
-                
-                {{!-- {{else if isLoginPage}}
-                <li><a href="/signup">Sign Up</a></li>
-                {{else if isSignupPage}}
-                <li><a href="/login">Login</a></li>
-                {{else}}
-                <li><a href="/signup">Sign Up</a></li>
-                <li><a href="/login">Login</a></li> --}}
-                {{/if}}
-            </ul>
-        </nav>
-    </header>
-    <main>
-        {{{body}}}
-    </main>
-    {{#if loggedIn}}
-    <script src="/js/logout.js"></script>
-    {{/if}}
+  {{{body}}}
+  {{#if loggedIn}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
 </body>
-
+<script src="https://kit.fontawesome.com/50d747bc10.js" crossorigin="anonymous"></script>
 </html>
