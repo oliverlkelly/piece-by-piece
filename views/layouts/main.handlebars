@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,21 +15,27 @@
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/leaderboard">Leaderboard</a></li>
-            {{#if isLoggedIn}}
-            <li><a href="/logout">Logout</a></li>
-            {{else if isLoginPage}}
+            {{#if loggedIn}}
+            <li><a href="/" id ="logout">Logout</a></li>
+            {{else}}
+            <li><a class="link" href="/login">Login</a></li>
+
+            {{!-- {{else if isLoginPage}}
             <li><a href="/signup">Sign Up</a></li>
             {{else if isSignupPage}}
             <li><a href="/login">Login</a></li>
             {{else}}
             <li><a href="/signup">Sign Up</a></li>
-            <li><a href="/login">Login</a></li>
+            <li><a href="/login">Login</a></li> --}}
             {{/if}}
         </ul>
     </nav>
 </header>
 <body>
     {{{body}}}
-    <script src="https://kit.fontawesome.com/50d747bc10.js" crossorigin="anonymous"></script>
+{{#if loggedIn}}
+<script src="/js/logout.js"></script>
+{{/if}}
 </body>
+<script src="https://kit.fontawesome.com/50d747bc10.js" crossorigin="anonymous"></script>
 </html>

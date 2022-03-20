@@ -10,7 +10,19 @@ router.get('/', async function(req, res, next){
         lastname: "Kelly"
     }
     res.render('homepage', {layout: 'main', title: 'Homepage', userchallenges, user});
+
+// const {  User, Challenge, Score} = require('../models');
+// // const withAuth = require('../utils/auth');
+
+// router.get('/', async function(req, res, next){
+//     const challengeData = await Challenge.findAll();
+//     const challenges = challengeData.map((chal) => chal.get({ plain: true }));
+//     res.render('homepage', {layout: 'main', title: 'Homepage', challenges, loggedIn: req.session.loggedIn});
+//     // res.status(200).json(challenges);
 });
+
+
+
 router.get('/signup', function(req, res, next){
     res.render('signup', {layout: 'main', title: 'Sign Up', isSignupPage: true});
 });
