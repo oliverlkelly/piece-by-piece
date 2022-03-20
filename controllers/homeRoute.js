@@ -1,4 +1,5 @@
 const router = require('express').Router();
+require('dotenv').config();
 
 const {  User, Challenge, Score } = require('../models');
 
@@ -31,6 +32,27 @@ router.get('/login', function(req, res, next){
 });
 router.post('/login', (req, res) => {
     res.redirect('/');
+});
+
+router.get('/leaderboard', function(req, res, next){
+    var mysql = require('mysql2')
+
+var con = mysql.createConnection({
+    host: "localhost",
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+  });
+
+  con.connect(function(err) {
+    if (err) throw err;
+    con.query("SELECT score.user_score, challenge.title, user.f_name FROM score INNER JOIN challenge ON score.challenge_id = challenge.id INNER JOIN user ON user.id = score.user_id" , function (err, userdata) {
+      if (err) throw err;
+      console.log(userdata)
+      res.cookie('leaderboarddata', JSON.stringify(userdata));
+      res.render('leaderboard', {layout: 'main', title: 'leaderboard'});
+    });
+  });
 });
 
 

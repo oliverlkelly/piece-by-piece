@@ -1,0 +1,68 @@
+<main>
+    <div>
+    <p>Daily Greeting</p>
+    <canvas id="userleaderboard" width="800px" height="600px"></canvas>
+    </div>
+    <script>
+function getCookie(c_name) {
+    if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) {
+                c_end = document.cookie.length;
+            }
+            return unescape(document.cookie.substring(c_start, c_end));
+        }
+    }
+    return "";
+}
+    var cookie = getCookie('leaderboarddata');
+    const leaderboarddata = JSON.parse(cookie)
+    console.log(leaderboarddata);
+    const challengetitles = []
+    const challengescores = []
+    const columnscolors = []
+    for (let i = 0; i < leaderboarddata.length; i++) {
+        challengetitles.push(leaderboarddata[i].f_name + ',' + leaderboarddata[i].title)
+    }
+        for (let i = 0; i < leaderboarddata.length; i++) {
+        challengescores.push(leaderboarddata[i].user_score)
+    }
+    for (let i = 0; i < leaderboarddata.length; i++) {
+        var color = 'rgba(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ', .2)'
+        columnscolors.push(color)
+        console.log(color)
+        console.log(columnscolors)
+    }
+    console.log(challengetitles)
+    var ctx = document.getElementById('userleaderboard');
+    const userleaderboard = new Chart(ctx, {
+type: 'bar',
+data: {
+    labels: challengetitles,
+    datasets: [{
+        label: 'USER SCORES',
+        data: challengescores,
+        backgroundColor: 
+        columnscolors,
+        borderColor:
+        columnscolors,
+        borderWidth: 1
+    }]
+},
+options: {
+    scales: {
+        y: {
+            beginAtZero: true
+        }
+    }
+},
+pan: { enable: false,
+}, zoom: {
+    enable: false,
+}
+});
+    </script>
+</main>
