@@ -2,6 +2,9 @@ const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection');
 
+// const Challenge = require('./challenge');
+// const User = require('./user');
+
 class Score extends Model {}
 Score.init(
     {
