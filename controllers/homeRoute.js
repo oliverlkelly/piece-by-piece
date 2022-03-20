@@ -3,6 +3,15 @@ require('dotenv').config();
 
 const {  User, Challenge, Score } = require('../models');
 
+var mysql = require('mysql2')
+
+var con = mysql.createConnection({
+    host: "localhost",
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+  });
+
 router.get('/', async function(req, res, next){
     if(req.session.loggedIn){
         const scoreData = await Score.findAll({where: {user_id: req.session.user_id}});
@@ -48,14 +57,6 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/leaderboard', function(req, res, next){
-    var mysql = require('mysql2')
-
-var con = mysql.createConnection({
-    host: "localhost",
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-  });
 
   con.connect(function(err) {
     if (err) throw err;

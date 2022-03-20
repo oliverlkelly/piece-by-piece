@@ -3,6 +3,7 @@
     <canvas id="userleaderboard" width="800px" height="600px"></canvas>
     </div>
     <script>
+
 function getCookie(c_name) {
     if (document.cookie.length > 0) {
         c_start = document.cookie.indexOf(c_name + "=");
@@ -21,21 +22,29 @@ function getCookie(c_name) {
     const leaderboarddata = JSON.parse(cookie)
     console.log(leaderboarddata);
     const challengetitles = []
-    const challengescores = []
+    const finalscore= []
     const columnscolors = []
+    let leaderboarddisplay = []
     for (let i = 0; i < leaderboarddata.length; i++) {
-        challengetitles.push(leaderboarddata[i].f_name + ',' + leaderboarddata[i].title)
-    }
-        for (let i = 0; i < leaderboarddata.length; i++) {
-        challengescores.push(leaderboarddata[i].user_score)
+        let challengescores = []
+        if ((leaderboarddisplay.filter(e => e.f_name === leaderboarddata[i].f_name).length > 0) === false){
+        leaderboarddisplay = leaderboarddata.filter(e => e.f_name === leaderboarddata[i].f_name)
+        challengetitles.push(leaderboarddisplay[0].f_name)
+        for (let i = 0; i < leaderboarddisplay.length; i++) {
+        console.log(leaderboarddisplay[i])
+        challengescores.push(leaderboarddisplay[i].user_score)
+        }      
+        var finalscoreuser = challengescores.reduce((a, b) => a + b, 0);
+        console.log(finalscoreuser)
+        finalscore.push(finalscoreuser)
+        console.log(finalscore)
+        }
     }
     for (let i = 0; i < leaderboarddata.length; i++) {
-        var color = 'rgba(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ', .2)'
+        var color = 'rgba(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ', .4)'
         columnscolors.push(color)
-        console.log(color)
-        console.log(columnscolors)
     }
-    console.log(challengetitles)
+
     var ctx = document.getElementById('userleaderboard');
     const userleaderboard = new Chart(ctx, {
 type: 'bar',
@@ -43,7 +52,7 @@ data: {
     labels: challengetitles,
     datasets: [{
         label: 'USER SCORES',
-        data: challengescores,
+        data: finalscore,
         backgroundColor: 
         columnscolors,
         borderColor:
