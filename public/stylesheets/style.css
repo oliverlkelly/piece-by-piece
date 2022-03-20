@@ -184,6 +184,7 @@ h3{
 }
 .scoreVal{
     border: 0.2rem solid var(--mainColor);
+    color: var(--mainColor);
     border-radius: 50%;
     height: 3rem;
     width: 3rem;
