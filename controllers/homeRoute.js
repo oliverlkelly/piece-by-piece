@@ -16,6 +16,7 @@ router.get('/', async function(req, res, next){
     if(req.session.loggedIn){
         const scoreData = await Score.findAll({where: {user_id: req.session.user_id}});
         const userchallenges = scoreData.map((chal) => chal.get({ plain: true }));
+        console.log(userchallenges);
         res.render('homepage', {layout: 'main', title: 'Homepage', userchallenges, userFname: req.session.f_name, loggedIn: req.session.loggedIn});
     }
     else{
@@ -64,7 +65,7 @@ router.get('/leaderboard', function(req, res, next){
       if (err) throw err;
       console.log(userdata)
       res.cookie('leaderboarddata', JSON.stringify(userdata));
-      res.render('leaderboard', {layout: 'main', title: 'leaderboard'});
+      res.render('leaderboard', {layout: 'main', title: 'leaderboard', loggedIn: req.session.loggedIn});
     });
   });
 });
