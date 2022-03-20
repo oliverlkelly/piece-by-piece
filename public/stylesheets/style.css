@@ -167,6 +167,7 @@ h3{
 }
 .boxPContent{
     height: 17rem;
+    padding: 0.5rem;
 }
 .score{
     display: flex;
