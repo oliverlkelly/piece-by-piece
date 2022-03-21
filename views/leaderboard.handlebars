@@ -21,23 +21,21 @@ function getCookie(c_name) {
     var cookie = getCookie('leaderboarddata');
     const leaderboarddata = JSON.parse(cookie)
     console.log(leaderboarddata);
-    const challengetitles = []
-    const finalscore= []
-    const columnscolors = []
+    let challengetitles = []
+    let finalscore= []
+    let columnscolors = []
     let leaderboarddisplay = []
     for (let i = 0; i < leaderboarddata.length; i++) {
         let challengescores = []
-        if ((leaderboarddisplay.filter(e => e.f_name === leaderboarddata[i].f_name).length > 0) === false){
+        if (!challengetitles.includes(leaderboarddata[i].f_name)){
         leaderboarddisplay = leaderboarddata.filter(e => e.f_name === leaderboarddata[i].f_name)
+        console.log("count")
         challengetitles.push(leaderboarddisplay[0].f_name)
         for (let i = 0; i < leaderboarddisplay.length; i++) {
-        console.log(leaderboarddisplay[i])
         challengescores.push(leaderboarddisplay[i].user_score)
         }      
         var finalscoreuser = challengescores.reduce((a, b) => a + b, 0);
-        console.log(finalscoreuser)
         finalscore.push(finalscoreuser)
-        console.log(finalscore)
         }
     }
     for (let i = 0; i < leaderboarddata.length; i++) {
